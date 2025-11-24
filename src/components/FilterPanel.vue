@@ -102,8 +102,6 @@ onMounted(fetchRecommendations)
   gap: 12px;
   overflow-x: auto;
   padding-bottom: 6px;
-
-  /* 隐藏滚动条（可选） */
   scrollbar-width: none;
 }
 .rec-container::-webkit-scrollbar {
@@ -111,7 +109,7 @@ onMounted(fetchRecommendations)
 }
 
 .rec-item-horizontal {
-  flex: 0 0 auto; /* 关键：不自动拉伸，保持卡片宽度固定 */
+  flex: 0 0 auto;
   width: 110px;
   padding: 8px;
   border-radius: 8px;

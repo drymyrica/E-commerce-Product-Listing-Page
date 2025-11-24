@@ -12,7 +12,6 @@
             </el-select>
         </div>
 
-        <!-- 自定义骨架屏 -->
          <div class="product-list-container">
             <div v-if="loading && products.length === 0">
             <RecycleScroller :items="skeletonRows" :item-size="450" key-field="0" >
@@ -24,7 +23,6 @@
             </RecycleScroller>
         </div>
 
-        <!-- 虚拟滚动 3x4 网格 -->
         <RecycleScroller v-else :items="rows" :item-size="450" key-field="0" >
             <template #default="{ item: row }">
                 <div class="grid-row">
@@ -35,8 +33,6 @@
         </RecycleScroller>
          </div>
         
-
-        <!-- 分页 -->
         <div class="pagination-box">
             <el-pagination background layout="prev, pager, next, sizes, total" :total="total" :page-size="pageSize"
                 v-model:current-page="page" @size-change="onPageSizeChange" />
@@ -61,7 +57,6 @@ const props = defineProps<{
 
 const store = useProductStore()
 
-// 排序 & 分页
 const sort = ref("default")
 const page = ref(1)
 const pageSize = ref(12)
@@ -70,7 +65,6 @@ const loading = computed(() => store.loading)
 const products = computed(() => store.products)
 const total = computed(() => store.total)
 
-// 按行分组，每行 4 个
 const rows = computed(() => {
     const perRow = 4
     const temp: Product[][] = []
@@ -99,7 +93,6 @@ async function loadData() {
     })
 }
 
-// 监听筛选条件变化
 watch(
     () => props.filters,
     () => {
@@ -109,7 +102,6 @@ watch(
     { deep: true }
 )
 
-// 监听分页变化
 watch([page, pageSize], () => loadData())
 
 onMounted(loadData)

@@ -1,11 +1,8 @@
 <template>
   <div class="product-list-page">
-    <!-- 筛选组件放在上面 -->
     <div class="filter-panel-wrapper" style="margin-bottom: 20px;">
       <FilterPanel @filtersChanged="onFiltersChange" />
     </div>
-
-    <!-- 商品列表组件 -->
     <ProductList :filters="filters" />
   </div>
 </template>
