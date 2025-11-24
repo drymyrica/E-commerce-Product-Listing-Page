@@ -1,48 +1,141 @@
-# E-commerce-Product-Listing-Page
+# 电子商务产品列表页面
 
-This template should help get you started developing with Vue 3 in Vite.
+这是一个基于Vue 3构建的现代电子商务产品列表页面，提供完整的产品浏览、筛选、排序和推荐功能。
 
-## Recommended IDE Setup
+## 功能特性
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **产品筛选**：支持关键词搜索、分类筛选和价格区间筛选
+- **产品排序**：支持按默认、价格升序、价格降序和销量排序
+- **分页浏览**：完整的分页控件，支持调整每页显示数量
+- **虚拟滚动**：使用虚拟滚动技术优化大数据量渲染性能
+- **商品推荐**：基于当前筛选条件展示个性化推荐商品
+- **响应式设计**：适配各种屏幕尺寸的设备
+- **加载状态**：优雅的加载动画和骨架屏
+- **商品卡片**：展示商品图片、标题、描述、价格等信息
+- **快速操作**：便捷的加入购物车功能
 
-## Recommended Browser Setup
+## 技术栈
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- **框架**：Vue 3 + TypeScript
+- **构建工具**：Vite
+- **状态管理**：Pinia
+- **UI组件库**：Element Plus
+- **路由**：Vue Router
+- **工具库**：
+  - VueUse (提供防抖等实用功能)
+  - Vue3-Virtual-Scroller (虚拟滚动)
 
-## Type Support for `.vue` Imports in TS
+## 项目结构
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+```
+src/
+├── components/          # 组件目录
+│   ├── FilterPanel.vue        # 筛选面板组件
+│   ├── ProductCard.vue        # 产品卡片组件
+│   ├── ProductList.vue        # 产品列表组件
+│   ├── ProductListPage.vue    # 产品列表页面
+│   └── ProductSkeletonCard.vue # 骨架屏组件
+├── mock/
+│   └── api.ts          # 模拟API接口
+├── router/
+│   └── index.ts        # 路由配置
+├── stores/
+│   └── productStore.ts # 产品状态管理
+├── types/
+│   └── types.ts        # TypeScript类型定义
+├── App.vue             # 根组件
+└── main.ts             # 应用入口
+```
 
-## Customize configuration
+## 核心功能说明
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### 1. 筛选功能
 
-## Project Setup
+筛选面板支持以下功能：
 
-```sh
+- 关键词搜索：根据商品标题和描述进行模糊匹配
+- 分类筛选：支持电子、服饰、家居三个分类
+- 价格区间筛选：可设置最小和最大价格
+- 重置功能：一键清除所有筛选条件
+- 防抖优化：使用400ms防抖，避免频繁请求
+
+### 2. 产品列表
+
+产品列表包含：
+
+- 结果统计：显示找到的商品总数
+- 排序选项：提供多种排序方式
+- 虚拟滚动：高效渲染大量商品数据
+- 分页控制：灵活的分页设置
+- 加载状态：数据加载时显示骨架屏
+
+### 3. 推荐系统
+
+"猜你喜欢"区域：
+
+- 基于当前筛选条件智能推荐
+- 实时更新：筛选条件改变时重新加载推荐
+
+## 安装与运行
+
+### 前置要求
+
+- Node.js >= 20.19.0 或 >= 22.12.0
+- npm 或 yarn 包管理器
+
+### 安装步骤
+
+```bash
+# 克隆项目
+# git clone <项目地址>
+
+# 进入项目目录
+cd E-commerce-Product-Listing-Page
+
+# 安装依赖
 npm install
-```
 
-### Compile and Hot-Reload for Development
-
-```sh
+# 开发环境运行
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+# 构建生产版本
 npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
+# 预览生产版本
+npm run preview
 
-```sh
+# 代码检查
 npm run lint
+
+# 格式化代码
+npm run format
 ```
+
+## 开发说明
+
+### 组件说明
+
+1. **FilterPanel**：负责用户输入筛选条件，并通过事件将筛选条件传递给父组件
+2. **ProductList**：负责展示产品列表，处理排序、分页和虚拟滚动逻辑
+3. **ProductCard**：单个产品的展示卡片，包含产品信息和操作按钮
+4. **ProductSkeletonCard**：加载状态下的占位组件
+5. **ProductListPage**：整合筛选面板和产品列表的主页面
+
+### 数据流程
+
+1. 用户在筛选面板输入筛选条件
+2. 筛选条件通过事件传递给ProductListPage
+3. ProductList组件接收筛选条件并调用store获取数据
+4. ProductStore从模拟API获取数据并更新状态
+5. 组件响应式更新UI显示结果
+
+## 性能优化
+
+- **虚拟滚动**：使用vue3-virtual-scroller处理大数据量渲染
+- **防抖处理**：用户输入时使用防抖避免频繁请求
+- **骨架屏**：数据加载过程中显示骨架屏提升用户体验
+- **分页加载**：只加载当前页数据，减少初始加载时间
+
+## License
+
+MIT
