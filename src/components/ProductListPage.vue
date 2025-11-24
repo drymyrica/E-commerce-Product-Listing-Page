@@ -1,14 +1,12 @@
 <template>
   <div class="product-list-page">
-    <el-row :gutter="20">
-      <el-col :span="6">
-        <FilterPanel @filtersChanged="onFiltersChange" />
-      </el-col>
+    <!-- 筛选组件放在上面 -->
+    <div class="filter-panel-wrapper" style="margin-bottom: 20px;">
+      <FilterPanel @filtersChanged="onFiltersChange" />
+    </div>
 
-      <el-col :span="18">
-        <ProductList :filters="filters" />
-      </el-col>
-    </el-row>
+    <!-- 商品列表组件 -->
+    <ProductList :filters="filters" />
   </div>
 </template>
 
@@ -28,3 +26,9 @@ function onFiltersChange(newFilters: any) {
   Object.assign(filters, newFilters)
 }
 </script>
+
+<style scoped>
+.product-list-page {
+  padding: 16px;
+}
+</style>

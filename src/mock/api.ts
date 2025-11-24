@@ -22,7 +22,7 @@ export async function fetchProducts(
 ): Promise<FetchProductsResponse> {
   const { page = 1, pageSize = 12, filters = {}, sort = 'default' } = params
 
-  await new Promise((r) => setTimeout(r, 400 + Math.random() * 300))
+  await new Promise((r) => setTimeout(r, 1400 + Math.random() * 300))
 
   let items = [...SAMPLE_PRODUCTS]
 
@@ -63,5 +63,5 @@ export async function fetchRecommendations({ basedOn = '' } = {}) {
   }
 
   candidates.sort(() => Math.random() - 0.5)
-  return candidates.slice(0, 4)
+  return candidates.slice(0, 10)
 }

@@ -6,9 +6,6 @@
       <div class="tag hot" v-if="product.sold > 500">热卖</div>
       <div class="tag new" v-else-if="product.id % 3 === 0">新品</div>
 
-      <div class="fav-btn">
-        <el-icon><i class="el-icon-star-off" /></el-icon>
-      </div>
     </div>
 
     <div class="info">

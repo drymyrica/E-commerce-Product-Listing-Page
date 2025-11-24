@@ -4,7 +4,7 @@
         <div class="list-header">
             <div class="count">共找到 <span class="highlight">{{ total }}</span> 件商品</div>
 
-            <el-select v-model="sort" size="small" @change="onSortChange">
+            <el-select v-model="sort" size="small" @change="onSortChange" style="width:160px;">
                 <el-option label="默认排序" value="default" />
                 <el-option label="价格：低到高" value="price_asc" />
                 <el-option label="价格：高到低" value="price_desc" />
@@ -13,8 +13,9 @@
         </div>
 
         <!-- 自定义骨架屏 -->
-        <div v-if="loading && products.length === 0">
-            <RecycleScroller :items="skeletonRows" :item-size="450" key-field="0" page-mode >
+         <div class="product-list-container">
+            <div v-if="loading && products.length === 0">
+            <RecycleScroller :items="skeletonRows" :item-size="450" key-field="0" >
                 <template #default="{ item: row }">
                     <div class="grid-row">
                         <ProductSkeletonCard v-for="i in row" :key="i" />
@@ -24,7 +25,7 @@
         </div>
 
         <!-- 虚拟滚动 3x4 网格 -->
-        <RecycleScroller v-else :items="rows" :item-size="450" key-field="0" page-mode>
+        <RecycleScroller v-else :items="rows" :item-size="450" key-field="0" >
             <template #default="{ item: row }">
                 <div class="grid-row">
                     <ProductCard v-for="product in row" :key="product.id" :product="product" @add-to-cart="addToCart" />
@@ -32,6 +33,8 @@
                 </div>
             </template>
         </RecycleScroller>
+         </div>
+        
 
         <!-- 分页 -->
         <div class="pagination-box">
@@ -167,6 +170,11 @@ function addToCart(item: Product) {
 
 .empty-card {
   visibility: hidden; /* 占位，不显示内容 */
+}
+
+.product-list-container {
+  height: 1400px;
+  overflow-y: auto;
 }
 
 </style>
